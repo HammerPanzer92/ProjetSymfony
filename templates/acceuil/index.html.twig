@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Testland !{% endblock %}
+
+{% block body %}
+<style>
+</style>
+
+<div class="container">
+    <h1>Bienvenue sur les tests{% if app.user %}, {{ app.user.username}}     
+    {% endif %}</h1>
+
+    <p>Un site avec plein de tests dedans</p>
+    <table class="table table-striped table-secondary">
+    {% for test in tabTest %}
+        <tr>
+        <th scope="row">
+        <a href="/Test/{{ test.id }}">{{ test.idJeu.Nom }}</a>
+        </th>
+        <td>
+        {{ test.Note }}
+        </td>
+        {% if app.user and test.idTesteur == app.user %}
+            <td>
+            <a href="/redactionTest/{{ test.id }}">Editer le test</a>
+            </td>
+        {% endif %}
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endblock %}

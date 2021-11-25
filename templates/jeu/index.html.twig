@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des jeux
+{% endblock %}
+
+{% block body %}
+	<style>
+	</style>
+
+	<div class="container">
+		<a href="/ajoutJeu"><button class="btn btn-primary">Ajouter un jeu</button></a>
+		<table class="table table-striped">
+			<tr>
+				<th scope="col">
+					Nom
+				</th>
+				<th scope="col">
+					Note
+				</th>
+				<th scope="col">
+					Testeur
+				</th>
+			</tr>
+			{% for jeu in listJeu %}
+				<tr>
+					{#Si le jeu a été testé par le même testeur ou si il a n'a pas de test#}
+					{% if jeu.test %}
+						<td>
+							<a href="/Test/{{ jeu.test.id }}">Test pour "{{ jeu.Nom }}"</a>
+						</td>
+					{% else %}
+						<td>
+							<a href="/redactionTest/{{ jeu.id }}">Régider le test pour
+								{{ jeu.Nom }}</a>
+						</td>
+					{% endif %}
+					{% if jeu.test %}
+						<td>
+							{{ jeu.test.Note }}
+						</td>
+						<td>
+							{{ jeu.test.IdTesteur.username}}
+						</td>
+					{% endif %}
+
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}
